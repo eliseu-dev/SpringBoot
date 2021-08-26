@@ -6,29 +6,51 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.min.css"  media="screen,projection"/>
 </head>
 <body>
-    <form action="salvarpessoa" method="post">
+<nav>
+    <div class="nav-wrapper">
+        <a href="/" class="brand-logo">CRUD</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a class="waves-effect waves-light btn"  href="/listapessoas">Exibir lista</a></li>
+            <li><a class="btn-floating btn-large waves-effect waves-light" href="/listapessoas"><i class="material-icons">folder_shared</i></a></li>
+
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <form action="salvarpessoa" method="post" th:object="${pessoaobj}">
+        <label>ID</label>
+        <input name="id" th:field="*{id}" readonly="readonly">
         <label>Nome</label>
-        <input name="nome">
+        <input name="nome" th:field="*{nome}">
         <label>Sobrenome</label>
-        <input name="sobrenome">
+        <input name="sobrenome" th:field="*{sobrenome}">
         <label>Idade</label>
-        <input name= "idade">
-        <input type="submit" value="Salvar">
+        <input name= "idade" th:field="*{idade}">
+        <button class="btn waves-effect waves-dark" type="submit" name="action">Salvar
+            <i class="material-icons right">send</i>
+        </button>
     </form>
-    <a href="/listapessoas">Exibir lista</a>
+
     <table>
         <tr th:each="pessoa : ${pessoas}">
             <td th:text= "${pessoa.id}"></td>
             <td th:text= "${pessoa.nome}"></td>
             <td th:text= "${pessoa.sobrenome}"></td>
             <td th:text= "${pessoa.idade}"></td>
+            <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}" >Editar</a></td>
+            <td><a th:href="@{/excluirpessoa/{idpessoa}(idpessoa=${pessoa.id})}" >Excluir</a></td>
 
         </tr>
     </table>
 
 
-
+    <script type="text/javascript" src="/static/materialize/js/materialize.js"></script>
+    <script type="text/javascript" src="/static/materialize/js/materialize.min.js"></script>
+    </div>
 </body>
 </html>
