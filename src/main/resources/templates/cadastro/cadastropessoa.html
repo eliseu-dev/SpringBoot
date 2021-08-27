@@ -1,56 +1,83 @@
 <!doctype html>
-<html  xmlns:="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Cadastro</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.min.css"
+          media="screen,projection"/>
 </head>
 <body>
 <nav>
     <div class="nav-wrapper">
         <a href="/" class="brand-logo">CRUD</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a class="waves-effect waves-light btn"  href="/listapessoas">Exibir lista</a></li>
-            <li><a class="btn-floating btn-large waves-effect waves-light" href="/listapessoas"><i class="material-icons">folder_shared</i></a></li>
+            <li><a class="waves-effect waves-light btn" href="/listapessoas">Exibir lista</a></li>
+
 
         </ul>
     </div>
 </nav>
+
 <div class="container">
-    <form action="salvarpessoa" method="post" th:object="${pessoaobj}">
-        <label>ID</label>
-        <input name="id" th:field="*{id}" readonly="readonly">
-        <label>Nome</label>
-        <input name="nome" th:field="*{nome}">
-        <label>Sobrenome</label>
-        <input name="sobrenome" th:field="*{sobrenome}">
-        <label>Idade</label>
-        <input name= "idade" th:field="*{idade}">
-        <button class="btn waves-effect waves-dark" type="submit" name="action">Salvar
-            <i class="material-icons right">send</i>
-        </button>
-    </form>
+    <h3>Cadastro</h3>
+    <div class="row">
+        <form class="col s12" name="formcadastro" onsubmit="return validarForm()" action="salvarpessoa" method="post"
+              th:object="${pessoaobj}">
 
-    <table>
-        <tr th:each="pessoa : ${pessoas}">
-            <td th:text= "${pessoa.id}"></td>
-            <td th:text= "${pessoa.nome}"></td>
-            <td th:text= "${pessoa.sobrenome}"></td>
-            <td th:text= "${pessoa.idade}"></td>
-            <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}" >Editar</a></td>
-            <td><a th:href="@{/excluirpessoa/{idpessoa}(idpessoa=${pessoa.id})}" >Excluir</a></td>
+            <div class="row">
+                <div class="input-field col s1">
+                    <label class="active" for="id">ID</label>
+                    <input name="id" th:field="*{id}" id="id" readonly="readonly" class="validate">
+                </div>
+                <div class="input-field col s5">
+                    <label class="active" for="nome">Nome</label>
+                    <input name="nome" th:field="*{nome}" id="nome" class="validate">
+                </div>
+                <div class="input-field col s6">
+                    <label class="active">Sobrenome</label>
+                    <input name="sobrenome" th:field="*{sobrenome}" class="validate">
+                </div>
+            </div>
+            <div class="input-field col s6">
+                <label class="active">Idade</label>
+                <input name="idade" th:field="*{idade}" class="validate">
+            </div>
+            <div class="input-field col s6">
+                <button class="btn waves-effect waves-dark" type="submit" name="action">Salvar</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function validarForm(){
+            var nomePessoa = document.forms["formcadastro"]["nome"].value;
+            if (nomePessoa == "") {
+                alert("Favor informar o seu nome!");
+                return false;
+            }else{
+                alert(nomePessoa + " cadastrado(a) com sucesso!");
+                return true;
+            }
+        }
 
-        </tr>
-    </table>
+
+
+
+
+
+
+
+
+
+    </script>
 
 
     <script type="text/javascript" src="/static/materialize/js/materialize.js"></script>
     <script type="text/javascript" src="/static/materialize/js/materialize.min.js"></script>
-    </div>
+</div>
 </body>
 </html>

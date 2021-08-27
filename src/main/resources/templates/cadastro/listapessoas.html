@@ -1,0 +1,52 @@
+<!doctype html>
+<html xmlns:="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/static/materialize/css/materialize.min.css"
+          media="screen,projection"/>
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper">
+        <a href="/" class="brand-logo">CRUD</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a class="waves-effect waves-light btn" href="/cadastropessoa">Cadastrar</a></li>
+
+
+        </ul>
+    </div>
+</nav>
+<div class="container">
+
+    <h5>Pesquisa</h5>
+    <form action="pesquisarpessoa" method="post">
+        <label>Pesquisa por nome:</label>
+        <input name="nomepesquisa">
+        <button class="btn waves-effect waves-dark" type="submit" name="action">Buscar</button>
+    </form>
+    <h5>Lista</h5>
+    <table class="striped">
+        <tr th:each="pessoa : ${pessoas}">
+            <td th:text="${pessoa.id}"></td>
+            <td><a methods="post" th:href="@{/dadospessoa/{idpessoa}(idpessoa=${pessoa.id})}"><span
+                    th:text="${pessoa.nome}"></span></a></td>
+            <td th:text="${pessoa.sobrenome}"></td>
+            <td th:text="${pessoa.idade}"></td>
+            <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Editar</a></td>
+            <td><a th:href="@{/excluirpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Excluir</a></td>
+
+        </tr>
+    </table>
+
+
+    <script type="text/javascript" src="/static/materialize/js/materialize.js"></script>
+    <script type="text/javascript" src="/static/materialize/js/materialize.min.js"></script>
+</div>
+</body>
+</html>
