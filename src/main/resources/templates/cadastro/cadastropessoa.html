@@ -26,6 +26,11 @@
 <div class="container">
     <h3>Cadastro</h3>
     <div class="row">
+        <br>
+        <div th:each="m : ${msg}">
+            <span th:text="${m}"></span>
+        </div>
+        </br>
         <form class="col s12" name="formcadastro" onsubmit="return validarForm()" action="salvarpessoa" method="post"
               th:object="${pessoaobj}">
 
@@ -55,7 +60,9 @@
     <script>
         function validarForm(){
             var nomePessoa = document.forms["formcadastro"]["nome"].value;
-            if (nomePessoa == "") {
+            var sobrenomePessoa = document.forms["formcadastro"]["sobrenome"].value;
+            var idade = document.forms["formcadastro"]["idade"].value;
+            if (nomePessoa == ""|| sobrenomePessoa == "" || idade < 17) {
                 alert("Favor informar o seu nome!");
                 return false;
             }else{
@@ -63,6 +70,13 @@
                 return true;
             }
         }
+
+
+
+
+
+
+
 
 
 
