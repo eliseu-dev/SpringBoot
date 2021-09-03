@@ -4,6 +4,7 @@ import curso.springboot.model.Dados;
 import curso.springboot.model.Pessoa;
 import curso.springboot.repository.DadosRepository;
 import curso.springboot.repository.PessoaRepository;
+import curso.springboot.repository.ProfissaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -29,10 +30,16 @@ public class PessoaController {
     @Autowired
     private ReportUtil reportUtil;
 
+    @Autowired
+    private ProfissaoRepository profissaoRepository;
+
     @RequestMapping(method = RequestMethod.GET, value = "cadastropessoa")
     public ModelAndView inicio() {
         ModelAndView andView = new ModelAndView("cadastro/cadastropessoa");
         andView.addObject("pessoaobj", new Pessoa());
+        List<Pessoa> pessoaIterable = pessoaRepository.findAll();
+        andView.addObject("pessoas", pessoaIterable);
+        andView.addObject("profissoes", profissaoRepository.findAll());
         return andView;
     }
 
@@ -45,6 +52,7 @@ public class PessoaController {
             ModelAndView andView = new ModelAndView("cadastro/cadastropessoa");
             List<Pessoa> pessoaIterable = pessoaRepository.findAll();
             andView.addObject("pessoas", pessoaIterable);
+            andView.addObject("profissoes", profissaoRepository.findAll());
             andView.addObject("pessoaobj", pessoa);
 
             List<String> msg = new ArrayList<String>();
@@ -59,6 +67,7 @@ public class PessoaController {
             ModelAndView andView = new ModelAndView("cadastro/cadastropessoa");
             List<Pessoa> pessoaIterable = pessoaRepository.findAll();
             andView.addObject("pessoas", pessoaIterable);
+            andView.addObject("profissoes", profissaoRepository.findAll());
             andView.addObject("pessoaobj", new Pessoa());
             return andView;
         }
@@ -81,6 +90,7 @@ public class PessoaController {
     public ModelAndView editar(@PathVariable("idpessoa") Long idpessoa) {
         ModelAndView andView = new ModelAndView("cadastro/cadastropessoa");
         Optional<Pessoa> pessoa = pessoaRepository.findById(idpessoa);
+        andView.addObject("profissoes", profissaoRepository.findAll());
         andView.addObject("pessoaobj", pessoa.get());
 
         return andView;

@@ -54,20 +54,29 @@
                     <input placeholder="Sobrenome da pessoa" name="sobrenome" th:field="*{sobrenome}" class="validate">
                 </div>
             </div>
-            <div class="input-field col s6" sec:authorize="hasRole('ROLE_ADMIN')">
-                <label for="sexopessoa" class="active">Sexo</label>
-                <select class="browser-default" th:field="*{sexopessoa}">
-                    <option value="" disabled selected>[Selecione]</option>
-                    <option value="MASCULINO" th:text="Masculino"/>
-                    <option value="FEMININO" th:text="Feminino"/>
-                </select>
-            </div>
-            <div class="input-field col s6" sec:authorize="hasRole('ROLE_ADMIN')">
-                <label class="active">Idade</label>
-                <input name="idade" th:field="*{idade}" class="validate">
+            <div class="row">
+                <div class="input-field col s2" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <label class="active">Idade</label>
+                    <input name="idade" th:field="*{idade}" class="validate">
+                </div>
+                <div class="input-field col s4" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <label for="sexopessoa" class="active">Sexo</label>
+                    <select class="browser-default" th:field="*{sexopessoa}" id="sexopessoa">
+                        <option value="" disabled selected>[Selecione]</option>
+                        <option value="MASCULINO" th:text="Masculino"/>
+                        <option value="FEMININO" th:text="Feminino"/>
+                    </select>
+                </div>
+                <div class="input-field col s6" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <label for="profissao" class="active">Profissãoo</label>
+                    <select class="browser-default" th:field="*{profissao}" id="profissao">
+                        <option th:each="p : ${profissoes}" th:value="${p.id}" th:text="${p.nomeProfissao}"/>
+                    </select>
+                </div>
+
             </div>
             <div class="row">
-                <div class="input-field col s3" sec:authorize="hasRole('ROLE_ADMIN')">
+                <div class="input-field col s2" sec:authorize="hasRole('ROLE_ADMIN')">
                     <label class="active">Cep</label>
                     <input name="cep" th:field="*{cep}" class="validate">
                 </div>
@@ -111,6 +120,21 @@
                 return true;
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -182,6 +206,21 @@
                 }
             });
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -35,6 +35,17 @@ public class Pessoa implements Serializable {
 
     private String sexopessoa;
 
+    @ManyToOne
+    private Profissao profissao;
+
+    public Profissao getProfissao() {
+        return profissao;
+    }
+
+    public void setProfissao(Profissao profissao) {
+        this.profissao = profissao;
+    }
+
     public String getSexopessoa() {
         return sexopessoa;
     }
