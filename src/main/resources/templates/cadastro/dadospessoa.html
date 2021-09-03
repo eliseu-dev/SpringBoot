@@ -1,5 +1,6 @@
 <!doctype html>
-<html xmlns:="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -28,7 +29,7 @@
     <h5>Dados</h5>
     <table class="striped">
         <div th:each="pessoa : ${pessoaobj}">
-            <div class="row">
+            <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
                 <p>ID: <span th:text="${pessoa.id}"></span></p>
             </div>
             <div class="row">
@@ -39,6 +40,25 @@
             </div>
             <div class="row">
                 <p>Idade: <span th:text="${pessoa.idade}"></span></p>
+            </div>
+            <div class="row">
+                <p>Cep: <span th:text="${pessoa.cep}"></span></p>
+            </div>
+            <div class="row">
+                <p>Rua: <span th:text="${pessoa.rua}"></span></p>
+            </div>
+            <div class="row">
+                <p>Bairro: <span th:text="${pessoa.bairro}"></span></p>
+            </div>
+            <div class="row">
+                <p>Cidade: <span th:text="${pessoa.cidade}"></span></p>
+            </div>
+            <div class="row">
+                <p>Estado: <span th:text="${pessoa.uf}"></span></p>
+            </div>
+
+            <div class="row">
+                <p>IBGE: <span th:text="${pessoa.ibge}"></span></p>
             </div>
 
         </div>

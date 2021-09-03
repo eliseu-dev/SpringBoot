@@ -14,4 +14,10 @@ import java.util.List;
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
     @Query("select p from Pessoa p where p.nome like %?1%")
     List<Pessoa> findPessoaByName(String nome);
+
+    @Query("select p from Pessoa p where p.sexopessoa like %?1%")
+    List<Pessoa> findPessoaByGender(String sexopessoa);
+
+    @Query("select p from Pessoa p where p.nome like %?1% and p.sexopessoa = ?2")
+    List<Pessoa> findPessoaByNameAndGender(String nome, String sexopessoa);
 }

@@ -31,4 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
-/src/main/java/curso/springboot/security/credentials.cfg
+/src/main/java/curso/springboot/security/Credentials.java
+/src/main/java/curso/springboot/SpringBoot/ApplicationTeste.java
+/src/main/resources/META-INF/MANIFEST.MF

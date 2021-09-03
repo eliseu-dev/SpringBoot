@@ -14,6 +14,7 @@ public class Pessoa implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private long id;
+
     @NotNull(message = "Nome não pode ser nulo")
     @NotEmpty(message = "Nome não pode estar vazio")
     private String nome;
@@ -24,6 +25,72 @@ public class Pessoa implements Serializable {
 
     @Min(value = 17, message = "Novin demais")
     private int idade;
+
+    private String cep;
+    private String cidade;
+    private String rua;
+    private String bairro;
+    private String uf;
+    private String ibge;
+
+    private String sexopessoa;
+
+    public String getSexopessoa() {
+        return sexopessoa;
+    }
+
+    public void setSexopessoa(String sexopessoa) {
+        this.sexopessoa = sexopessoa;
+    }
+
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public String getIbge() {
+        return ibge;
+    }
+
+    public void setIbge(String ibge) {
+        this.ibge = ibge;
+    }
 
     @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Dados> telefones;

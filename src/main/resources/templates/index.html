@@ -1,14 +1,14 @@
 <!doctype html>
 
-<html lang="pt-br">
+<html lang="pt-br" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="static/materialize/css/materialize.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="static/materialize/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="static/materialize/css/materialize.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="static/materialize/css/materialize.min.css" media="screen,projection"/>
 
     <title>Springboot inicial application</title>
 </head>
@@ -17,16 +17,19 @@
     <div class="nav-wrapper">
         <a href="/" class="brand-logo">CRUD</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a class="waves-effect waves-light btn"  href="/listapessoas">Exibir lista</a></li>
-            <li><a class="waves-effect waves-light btn"  href="/cadastropessoa">Cadastro pessoa</a></li>
+            <li><a class="waves-effect waves-light btn" href="/listapessoas">Exibir lista</a></li>
+            <li><a sec:authorize="hasRole('ROLE_ADMIN')" class="waves-effect waves-light btn" href="/cadastropessoa">Cadastro
+                pessoa</a></li>
 
         </ul>
     </div>
 </nav>
-    <h1>Olá Teste</h1>
+<h1 sec:authorize="hasRole('ROLE_ADMIN')">Olá Admin</h1>
+<h1 sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">BOM DIA</h1>
+<h1>SEJA BEM VINDO</h1>
 
 
-    <script type="text/javascript" src="static/materialize/js/materialize.js"></script>
-    <script type="text/javascript" src="static/materialize/js/materialize.min.js"></script>
+<script type="text/javascript" src="static/materialize/js/materialize.js"></script>
+<script type="text/javascript" src="static/materialize/js/materialize.min.js"></script>
 </body>
 </html>
