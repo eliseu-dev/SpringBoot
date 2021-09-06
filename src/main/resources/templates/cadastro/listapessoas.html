@@ -48,35 +48,37 @@
                 <button class="btn waves-effect waves-dark" type="submit" name="action" value="PDF"
                         onclick="document.getElementById('pesquisarpessoa').method = 'get'">PDF
                 </button>
-                <input class="waves-effect waves-light btn" type="submit"
-                       value="PDF" onclick="document.getElementById('pesquisarpessoa').method = 'get'">
+
             </div>
         </form>
     </div>
 
     <h5>Lista</h5>
     <table class="striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Curriculo</th>
+            <th>Editar</th>
+            <th>Excluir</th>
+        </tr>
+        </thead>
         <tr th:each="pessoa : ${pessoas}">
             <td th:text="${pessoa.id}"></td>
             <td><a methods="post" th:href="@{/dadospessoa/{idpessoa}(idpessoa=${pessoa.id})}"><span
                     th:text="${pessoa.nome}"></span></a></td>
             <td th:text="${pessoa.sobrenome}"></td>
-            <td th:text="${pessoa.idade}"></td>
+            <td><a th:if="${pessoa.curriculo != null}" th:href="@{/baixarcurriculo/{idpessoa}(idpessoa=${pessoa.id})}">Download</a>
+                <a th:if="${pessoa.curriculo == null}" style="color: red">Download</a>
+            </td>
             <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Editar</a></td>
             <td><a th:href="@{/excluirpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Excluir</a></td>
 
         </tr>
     </table>
-    <script>
-        function enviaPorGet(pesquisarpessoa){
-            onclick=document.getElementById('pesquisarpessoa').method = "get";
-        }
 
-
-
-
-
-    </script>
 
     <script type="text/javascript" src="/static/materialize/js/materialize.js"></script>
     <script type="text/javascript" src="/static/materialize/js/materialize.min.js"></script>

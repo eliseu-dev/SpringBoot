@@ -1,10 +1,13 @@
 package curso.springboot.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 
@@ -37,6 +40,59 @@ public class Pessoa implements Serializable {
 
     @ManyToOne
     private Profissao profissao;
+
+    @Enumerated(EnumType.STRING)
+    private Cargo cargo;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date dataNascimento;
+
+    @Lob
+    private byte[] curriculo;
+
+    private String nomeFileCurriculo;
+    private String tipoFileCurriculo;
+
+    public String getNomeFileCurriculo() {
+        return nomeFileCurriculo;
+    }
+
+    public void setNomeFileCurriculo(String nomeFileCurriculo) {
+        this.nomeFileCurriculo = nomeFileCurriculo;
+    }
+
+    public String getTipoFileCurriculo() {
+        return tipoFileCurriculo;
+    }
+
+    public void setTipoFileCurriculo(String tipoFileCurriculo) {
+        this.tipoFileCurriculo = tipoFileCurriculo;
+    }
+
+    public byte[] getCurriculo() {
+        return curriculo;
+    }
+
+    public void setCurriculo(byte[] curriculo) {
+        this.curriculo = curriculo;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
+    }
 
     public Profissao getProfissao() {
         return profissao;

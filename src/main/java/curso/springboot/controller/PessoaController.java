@@ -10,11 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,8 +45,9 @@ public class PessoaController {
         return andView;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "**/salvarpessoa")
-    public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult bindingResult) {
+    @RequestMapping(method = RequestMethod.POST, value = "**/salvarpessoa"
+            , consumes = {"multipart/form-data"})
+    public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult bindingResult, final MultipartFile file) throws IOException {
 
 
         pessoa.setTelefones(dadosRepository.listaDados(pessoa.getId()));
@@ -63,6 +66,20 @@ public class PessoaController {
             andView.addObject("msg", msg);
             return andView;
         } else {
+            if (file.getSize() > 0) {
+                pessoa.setCurriculo(file.getBytes());
+                pessoa.setTipoFileCurriculo(file.getContentType());
+                pessoa.setNomeFileCurriculo(file.getOriginalFilename());
+            } else {
+                Long idTemp = pessoa.getId();
+                if (idTemp != null && pessoa.getId() > 0) {
+                    byte[] pessoaTemp = pessoaRepository.findById(pessoa.getId()).get().getCurriculo();
+                    pessoa.setCurriculo(file.getBytes());
+                    pessoa.setTipoFileCurriculo(file.getContentType());
+                    pessoa.setNomeFileCurriculo(file.getOriginalFilename());
+                }
+            }
+
             pessoaRepository.save(pessoa);
             ModelAndView andView = new ModelAndView("cadastro/cadastropessoa");
             List<Pessoa> pessoaIterable = pessoaRepository.findAll();
@@ -214,6 +231,20 @@ public class PessoaController {
 
         //finaliza resposta pro navegador
         response.getOutputStream().write(pdf);
+    }
+
+    @GetMapping("**/baixarcurriculo/{idpessoa}")
+    public void baixarCurriculo(@PathVariable("idpessoa") Long idpessoa, HttpServletResponse response) throws IOException {
+        Pessoa pessoa = pessoaRepository.findById(idpessoa).get();
+        if (pessoa.getCurriculo() != null) {
+            response.setContentLength(pessoa.getCurriculo().length);
+            response.setContentType(pessoa.getTipoFileCurriculo());
+
+            String headerKey = "Content-Disposition";
+            String headerValue = String.format("attachment; filename=\"%s\"", pessoa.getNomeFileCurriculo());
+            response.setHeader(headerKey, headerValue);
+            response.getOutputStream().write(pessoa.getCurriculo());
+        }
     }
 
 
