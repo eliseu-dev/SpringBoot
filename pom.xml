@@ -82,6 +82,12 @@
             <artifactId>jasperreports</artifactId>
             <version>6.16.0</version>
         </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>spring-mock-mvc</artifactId>
+            <version>4.4.0</version>
+            <scope>compile</scope>
+        </dependency>
         
 
     </dependencies>
